@@ -5,7 +5,10 @@ KONIEC="0"
 GRACZ="O"
 RE_NUM='^[0-9]$'
 RE_SAVE='^save-.+\.txt$'
+RE_PLAYER='^1$|^2$'
 SAVE=""
+TRYB="2"
+WOLNE_POLA=(0 1 2 3 4 5 6 7 8)
 
 function legenda {
 	echo "   Legenda"
@@ -66,6 +69,7 @@ function ustaw_pole {
 	if [ ${PLANSZA[$idx]} = "." ]
 	then 
 		PLANSZA[$idx]=$GRACZ
+		update_wolne_pola $idx
 		sprawdz_remis
 		sprawdz_wygrana
 		if [ $KONIEC -eq 0 ]
@@ -106,28 +110,55 @@ function zapisz {
 	echo $GRACZ >> $SAVE
 }
 
+function update_wolne_pola {
+	id=0
+	while [ ${WOLNE_POLA[$id]} != $1 ]
+	do
+		id=$(($id + 1))
+	done
+
+	WOLNE_POLA=( "${WOLNE_POLA[@]:0:$((id))}" "${WOLNE_POLA[@]:$((id + 1))}" )
+}
+
+function wylosuj_pole {
+	idx=${WOLNE_POLA[RANDOM % ${#WOLNE_POLA[@]}]}
+	update_wolne_pola $idx
+
+	PLANSZA[$idx]=$GRACZ
+	sprawdz_remis
+	sprawdz_wygrana
+	if [ $KONIEC -eq 0 ]
+	then
+		zmiana_gracza
+	fi
+	wyswietl
+}
+
 function gra {
 	wyswietl
 	while [ $KONIEC -eq 0 ]
 	do
-		echo "Podaj pozycje X Y lub wartosc z legendy:"
-		read X Y
-		if [[ $X =~ $RE_NUM ]] && [ $X -ge 0 ] && [ $X -le 2 ] && 
-		[[ $Y =~ $RE_NUM ]] && [ $Y -ge 0 ] && [ $Y -le 2 ]
+		if [ $TRYB -eq 2 ] || [ $GRACZ = "O" ]
 		then
-			echo $X
-			echo $Y
-			ustaw_pole $X $Y
-		elif [[ $X =~ ^[s]$ ]] || [[ $X =~ ^[S]$ ]]
-		then
-			KONIEC=3
-			zapisz
-		elif [[ $X =~ ^[q]$ ]] || [[ $X =~ ^[Q]$ ]]
-		then
-			KONIEC=4
+			echo "Podaj pozycje X Y lub wartosc z legendy:"
+			read X Y
+			if [[ $X =~ $RE_NUM ]] && [ $X -ge 0 ] && [ $X -le 2 ] && 
+			[[ $Y =~ $RE_NUM ]] && [ $Y -ge 0 ] && [ $Y -le 2 ]
+			then
+				ustaw_pole $X $Y
+			elif [[ $X =~ ^[s]$ ]] || [[ $X =~ ^[S]$ ]]
+			then
+				KONIEC=3
+				zapisz
+			elif [[ $X =~ ^[q]$ ]] || [[ $X =~ ^[Q]$ ]]
+			then
+				KONIEC=4
+			else
+				wyswietl
+				echo "Podano zle wartosci"
+			fi
 		else
-			wyswietl
-			echo "Podano zle wartosci"
+			wylosuj_pole
 		fi
 	done
 	zakoczenie
@@ -147,11 +178,30 @@ function wczytaj {
 	done < $SAVE
 }
 
+function wylosuj_gracza {
+	l=$(($RANDOM % 2))
+	if [ $l -eq 0 ]
+	then
+		GRACZ="O"
+	else
+		GRACZ="X"
+	fi
+}
+
 if [[ $1 =~ $RE_SAVE ]]
 then
 	SAVE=$1
 	wczytaj
 fi
 
-wyswietl
+echo "Podaj liczbe graczy w przedziale (1-2): "
+read TRYB
+while ! [[ $TRYB =~ $RE_PLAYER ]]
+do
+	clear
+	echo "Podaj liczbe graczy w przedziale (1-2): "
+	read TRYB
+done
+
+wylosuj_gracza
 gra
