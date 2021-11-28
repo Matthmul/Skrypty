@@ -108,6 +108,7 @@ function zapisz {
 		n=$(( $n + 1 ))
 	done 
 	echo $GRACZ >> $SAVE
+	echo $TRYB >> $SAVE
 }
 
 function update_wolne_pola {
@@ -170,12 +171,34 @@ function wczytaj {
 	do
 		if [ $n -le 8 ]
 		then
+			if ! [[ $line =~ ^[O|X|.]$ ]]
+			then
+				break
+			fi
 			PLANSZA[$n]=$line
-			n=$(( $n + 1 ))
-		else
+		elif [ $n -eq 9 ]
+		then
+			if ! [[ $line =~ ^[O|X]$ ]]
+			then
+				break
+			fi
 			GRACZ=$line
+		elif [ $n -eq 10 ]
+		then
+			if ! [[ $line =~ ^[1|2]$ ]]
+			then
+				break
+			fi
+			TRYB=$line
 		fi
+		n=$(( $n + 1 ))
 	done < $SAVE
+
+	if [ $n -le 10 ]
+	then
+		echo "Blad podczas wczytywania save'a."
+		exit
+	fi
 }
 
 function wylosuj_gracza {
@@ -192,16 +215,17 @@ if [[ $1 =~ $RE_SAVE ]]
 then
 	SAVE=$1
 	wczytaj
-fi
+else
+	wylosuj_gracza
 
-echo "Podaj liczbe graczy w przedziale (1-2): "
-read TRYB
-while ! [[ $TRYB =~ $RE_PLAYER ]]
-do
-	clear
 	echo "Podaj liczbe graczy w przedziale (1-2): "
 	read TRYB
-done
+	while ! [[ $TRYB =~ $RE_PLAYER ]]
+	do
+		clear
+		echo "Podaj liczbe graczy w przedziale (1-2): "
+		read TRYB
+	done
+fi
 
-wylosuj_gracza
 gra
