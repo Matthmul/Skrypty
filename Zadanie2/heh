@@ -1,0 +1,155 @@
+stories.md
+
+## say goodbye
+* goodbye
+  - utter_goodbye
+
+## restaurant open
+* greet
+  - utter_greet
+* date
+  - utter_ask_date
+* date_info
+  - action_get_date
+* thanks
+  - utter_welcome
+  - utter_goodbye
+
+## restaurant menu
+* greet
+  - utter_greet
+* menu
+  - action_get_menu
+* thanks
+  - utter_welcome
+  - utter_goodbye
+
+## restaurant order
+* greet
+  - utter_greet
+* order
+  - utter_ask_order
+* confirm_order
+  - action_make_order
+* thanks
+  - utter_welcome
+  - utter_goodbye
+
+## restaurant order
+* greet
+  - utter_greet
+* order
+  - utter_ask_order
+* confirm_order
+  - action_make_order
+* thanks
+  - utter_welcome
+  - utter_goodbye
+
+
+## weather long
+* greet
+  - utter_greet
+* weather
+  - utter_ask_location
+* city_info
+  - utter_getting_weather
+  - action_get_weather
+* thanks
+  - utter_welcome
+  - utter_goodbye
+
+
+################################################################################
+nlu.md
+
+## intent:greet
+- hey
+- hello
+- hi
+- good morning
+- good evening
+- hey there
+
+## intent:goodbye
+- bye
+- goodbye
+- see you around
+- see you later
+
+## intent:bot_challenge
+- are you a bot?
+- are you a human?
+- am I talking to a bot?
+- am I talking to a human?
+
+## intent:weather
+- what's the weather
+- what is the temperature today
+- what is the temperature
+- i want to know the temperature
+- i want to know the weather of today
+- tell me the weather forecast
+- hows the weather today
+
+## intent:weather_for_location
+- what is the weather in [Noida](location)
+- what is the weather in [New Delhi](location)
+- weather of [Mumbai] (location)
+- Today's weather in [Bangalore](location)
+- [Kolkata](location) weather
+- Tell me weather of [Hyderabad](location)
+- Can you tell me weather of [London](location)
+
+## intent:city_info
+- [New Delhi](location)
+- [India](location)
+- [Mumbai](location)
+- [Noida](location)
+- [Kolkata](location)
+- [Bangalore](location)
+- [London](location)
+
+##intent: thanks
+- thanks
+- thank you
+- OK
+
+##########################################################################
+domain.yml
+
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
+intents:
+- greet
+- goodbye
+- bot_challenge
+- weather
+- weather_for_location
+- city_info
+- thanks
+entities:
+- location
+slots:
+  location:
+    type: text
+responses:
+  utter_greet:
+  - text: Hey!
+  utter_goodbye:
+  - text: Bye
+  - text: Good Bye
+  utter_ask_location:
+  - text: of where?
+  - text: In what city?
+  utter_getting_weather:
+  - text: Ok, getting weather of [location] ...
+  utter_welcome:
+  - text: Welcome
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+actions:
+- action_get_weather
