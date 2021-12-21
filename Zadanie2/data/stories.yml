@@ -52,46 +52,84 @@ stories:
   - intent: greet
   - action: utter_greet
   - action: utter_help
-  - intent: order
-  - action: utter_ask_order
-  - intent: order_list
-  - action: action_get_order
-  - intent: affirm
-  - action: action_make_order
-  - intent: thanks
-  - action: utter_welcome
+  - intent: request_order
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: order_slot
+  - active_loop: null
+  - action: utter_submit_order
+  # - intent: order_list
+  # - action: action_get_order
+  # - intent: affirm
+  # - action: action_make_order
+  # - intent: thanks
+  # - action: utter_welcome
   - intent: goodbye
   - action: utter_goodbye
 
+- story: User interrupts the form and doesn't want to continue
+  steps:
+  - intent: request_order
+  - action: order_form
+  - active_loop: order_form
+  - intent: deny
+  - action: action_deactivate_loop
+  - active_loop: null
+
 - story: Order yes
   steps:
-  - intent: order
-  - action: utter_ask_order
-  - intent: order_list
-  - action: action_get_order
-  - intent: affirm
-  - action: action_make_order
+  - intent: request_order
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: order_slot
+  - active_loop: null
+  - action: utter_submit_order
 
-- story: Order no
-  steps:
-  - intent: order
-  - action: utter_ask_order
-  - intent: order_list
-  - action: action_get_order
-  - intent: deny
-  - action: utter_welcome
+# - story: Order yes
+#   steps:
+#   - intent: order
+#   - action: utter_ask_order
+#   - intent: order_list
+#   - action: action_get_order
+#   - intent: affirm
+#   - action: action_make_order
 
-- story: Resturant order deny
+# - story: Order no
+#   steps:
+#   - intent: order
+#   - action: utter_ask_order
+#   - intent: order_list
+#   - action: action_get_order
+#   - intent: deny
+#   - action: utter_welcome
+
+# - story: Resturant order deny
+#   steps:
+#   - intent: greet
+#   - action: utter_greet
+#   - action: utter_help
+#   - intent: order
+#   - action: utter_ask_order
+#   - intent: order_list
+#   - action: utter_ask_confirm_order
+#   - intent: deny
+#   - action: utter_welcome
+#   - intent: thanks
+#   - intent: goodbye
+#   - action: utter_goodbye
+
+- story: interactive_story_1
   steps:
   - intent: greet
   - action: utter_greet
   - action: utter_help
-  - intent: order
-  - action: utter_ask_order
+  - intent: menu
+  - action: action_get_menu
+  - intent: request_order
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: order_slot
   - intent: order_list
-  - action: utter_ask_confirm_order
-  - intent: deny
-  - action: utter_welcome
-  - intent: thanks
-  - intent: goodbye
-  - action: utter_goodbye

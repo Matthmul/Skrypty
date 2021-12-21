@@ -1,5 +1,4 @@
 version: "3.0"
-
 nlu:
 - intent: greet
   examples: |
@@ -16,7 +15,6 @@ nlu:
     - goodmorning
     - goodevening
     - good afternoon
-
 - intent: goodbye
   examples: |
     - cu
@@ -29,7 +27,6 @@ nlu:
     - see you around
     - bye bye
     - see you later
-
 - intent: affirm
   examples: |
     - yes
@@ -38,7 +35,6 @@ nlu:
     - of course
     - that sounds good
     - correct
-
 - intent: deny
   examples: |
     - no
@@ -48,7 +44,7 @@ nlu:
     - don't like that
     - no way
     - not really
-    
+    - stop
 - intent: thanks
   examples: |
     - thank you
@@ -60,8 +56,6 @@ nlu:
     - Thats very kind of you
     - Youre awesome
     - Thank you for
-    - Thank you for
-
 - intent: open_hours
   examples: |
     - what are the opening hours
@@ -70,33 +64,22 @@ nlu:
     - at what time the restaurant is opened
     - Schedule of work
     - working schedule
-
 - intent: open_now_hours
   examples: |
     - at what time the restaurant is closed
     - at what time the restaurant is opened
     - at what time the restaurant works
     - What time does the restaurant open
-
 - intent: menu
   examples: |
     - What is at menu
     - Menu
     - Show menu
-
-- intent: order
+    - What's menu?
+- intent: request_order
   examples: |
     - I would like to make order
     - Make order
     - order
-
-- intent: order_list
-  examples: |
-    - I would like to
-    - I want
-    - Lasagne
-    - Pizza
-    - Hot-dog
-    - Burger
-    - Spaghetti
-    - Tiramisu   
+    - I want to order
+    

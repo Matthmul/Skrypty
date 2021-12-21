@@ -9,7 +9,7 @@
 
 from typing import Any, Text, Dict, List
 
-from rasa_sdk import Action, Tracker
+from rasa_sdk import Action, Tracker, FormValidationAction
 from rasa_sdk.executor import CollectingDispatcher
 import datetime
 import json
@@ -84,8 +84,7 @@ class ActionMakeOrder(Action):
         return "action_get_order"
 
     def run(self, dispatcher, tracker, domain):
-        print(tracker.latest_message['text'])
-        print(tracker.latest_message)
+        print(tracker.get_slot("order"))
         response = "Your order is:\n"
         response += str(tracker.latest_message['text'])
         dispatcher.utter_message(response)
@@ -101,3 +100,27 @@ class ActionMakeOrder(Action):
 
         dispatcher.utter_message("Food orderd.")
         return []
+
+
+class ValidateOrderForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_order_form"
+    
+    async def run(self, slots_mapped_in_domain, dispatcher, tracker, domain):
+        order_slot = tracker.slots.get("order_slot")
+        if order_slot is not None:
+            return ["order_correctly"] + slots_mapped_in_domain
+        return slots_mapped_in_domain
+    
+    async def extract_order_correctly(self, dispatcher, tracker, domain):
+        intent = tracker.get_intent_of_latest_message()
+        return {"order_correctly": intent == "affirm"}
+
+    def validate_order_correctly(self, slot_value, dispatcher, tracker, domain):
+        if tracker.get_slot("order_correctly"):
+            return {"order_slot": tracker.get_slot("order_slot"), "order_correctly": True}
+        return {"order_slot": None, "order_correctly": None}
+        
+    def validate_order(self, slot_value, dispatcher, tracker, domain):
+        print(f"Order given: {slot_value}")
+        return {"first_name": slot_value}

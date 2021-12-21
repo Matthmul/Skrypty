@@ -1,48 +1,68 @@
-version: "3.0"
-
-intents:
-  - greet
-  - goodbye
-  - affirm
-  - deny
-  - thanks
-  - open_hours
-  - open_now_hours
-  - menu
-  - order
-  - order_list
-
-actions:
-  - action_get_date
-  - action_get_now_date
-  - action_get_menu
-  - action_get_order
-  - action_make_order
-    
-responses:
-  utter_greet:
-  - text: "Hey!"
-  - text: "Hello!"
-  - text: "Good morning."
-
-  utter_goodbye:
-  - text: "Bye."
-  - text: "Goodbye."
-  - text: "Narua."
-
-  utter_help:
-  - text: "How could I help you?"
-
-  utter_welcome:
-  - text: "You're welcome."
-  - text: "You are welcome."
-
-  utter_ask_order:
-  - text: "What you want to order?"
-
-  utter_ask_confirm_order:
-  - text: "Are you sure that you want it?"
-
+version: '3.0'
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
+intents:
+- menu
+- request_order
+- greet
+- order_list
+- goodbye
+- affirm
+- deny
+- thanks
+- open_hours
+- open_now_hours
+entities:
+- order_correctly
+- order_slot
+slots:
+  order_slot:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: order_slot
+  order_correctly:
+    type: bool
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: order_correctly
+responses:
+  utter_greet:
+  - text: Hey!
+  - text: Hello!
+  - text: Good morning.
+  utter_goodbye:
+  - text: Bye.
+  - text: Goodbye.
+  - text: Narua.
+  utter_help:
+  - text: How can I help you?
+  utter_welcome:
+  - text: You're welcome.
+  - text: You are welcome.
+  utter_ask_order_form_order_slot:
+  - text: What you want to order?
+  utter_submit_order:
+  - text: Food orderd.
+  utter_ask_order_correctly:
+  - buttons:
+    - payload: /affirm
+      title: Yes
+    - payload: /deny
+      title: No
+    text: Your order is:\n{order_slot} \nAre you sure that you want it?
+actions:
+- action_get_date
+- action_get_menu
+- action_get_now_date
+- action_get_order
+- action_make_order
+- utter_greet
+- utter_help
+forms:
+  order_form:
+    required_slots:
+    - order_slot
