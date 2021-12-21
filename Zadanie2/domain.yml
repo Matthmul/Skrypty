@@ -5,29 +5,43 @@ intents:
   - goodbye
   - affirm
   - deny
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
+  - thanks
+  - open_hours
+  - open_now_hours
+  - menu
+  - order
+  - order_list
 
+actions:
+  - action_get_date
+  - action_get_now_date
+  - action_get_menu
+  - action_get_order
+  - action_make_order
+    
 responses:
   utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
+  - text: "Hey!"
+  - text: "Hello!"
+  - text: "Good morning."
 
   utter_goodbye:
-  - text: "Bye"
+  - text: "Bye."
+  - text: "Goodbye."
+  - text: "Narua."
 
-  utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
+  utter_help:
+  - text: "How could I help you?"
+
+  utter_welcome:
+  - text: "You're welcome."
+  - text: "You are welcome."
+
+  utter_ask_order:
+  - text: "What you want to order?"
+
+  utter_ask_confirm_order:
+  - text: "Are you sure that you want it?"
 
 session_config:
   session_expiration_time: 60

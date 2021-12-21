@@ -48,44 +48,55 @@ nlu:
     - don't like that
     - no way
     - not really
-
-- intent: mood_great
+    
+- intent: thanks
   examples: |
-    - perfect
-    - great
-    - amazing
-    - feeling like a king
-    - wonderful
-    - I am feeling very good
-    - I am great
-    - I am amazing
-    - I am going to save the world
-    - super stoked
-    - extremely good
-    - so so perfect
-    - so good
-    - so perfect
+    - thank you
+    - thx
+    - thnak you
+    - tu
+    - Thanks
+    - Thanks so much
+    - Thats very kind of you
+    - Youre awesome
+    - Thank you for
+    - Thank you for
 
-- intent: mood_unhappy
+- intent: open_hours
   examples: |
-    - my day was horrible
-    - I am sad
-    - I don't feel very well
-    - I am disappointed
-    - super sad
-    - I'm so sad
-    - sad
-    - very sad
-    - unhappy
-    - not good
-    - not very good
-    - extremly sad
-    - so saad
-    - so sad
+    - what are the opening hours
+    - Opening times
+    - at what time can I go to the restaurant
+    - at what time the restaurant is opened
+    - Schedule of work
+    - working schedule
 
-- intent: bot_challenge
+- intent: open_now_hours
   examples: |
-    - are you a bot?
-    - are you a human?
-    - am I talking to a bot?
-    - am I talking to a human?
+    - at what time the restaurant is closed
+    - at what time the restaurant is opened
+    - at what time the restaurant works
+    - What time does the restaurant open
+
+- intent: menu
+  examples: |
+    - What is at menu
+    - Menu
+    - Show menu
+
+- intent: order
+  examples: |
+    - I would like to make order
+    - Make order
+    - order
+
+- intent: order_list
+  examples: |
+    - I would like to
+    - I want
+    - Lasagne
+    - Pizza
+    - Hot-dog
+    - Burger
+    - Spaghetti
+    - Tiramisu   

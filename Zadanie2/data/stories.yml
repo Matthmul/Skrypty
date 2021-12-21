@@ -2,29 +2,96 @@ version: "3.0"
 
 stories:
 
-- story: happy path
+- story: Greeting Rule
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
-
-- story: sad path 1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
-
-- story: sad path 2
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
+  - action: utter_help
   - intent: deny
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: Resturant open now
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: utter_help
+  - intent: open_now_hours
+  - action: action_get_now_date
+  - intent: thanks
+  - action: utter_welcome
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: Resturant open now
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: utter_help
+  - intent: open_hours
+  - action: action_get_date
+  - intent: thanks
+  - action: utter_welcome
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: Resturant list menu
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: utter_help
+  - intent: menu
+  - action: action_get_menu
+  - intent: thanks
+  - action: utter_welcome
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: Resturant order approved
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: utter_help
+  - intent: order
+  - action: utter_ask_order
+  - intent: order_list
+  - action: action_get_order
+  - intent: affirm
+  - action: action_make_order
+  - intent: thanks
+  - action: utter_welcome
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: Order yes
+  steps:
+  - intent: order
+  - action: utter_ask_order
+  - intent: order_list
+  - action: action_get_order
+  - intent: affirm
+  - action: action_make_order
+
+- story: Order no
+  steps:
+  - intent: order
+  - action: utter_ask_order
+  - intent: order_list
+  - action: action_get_order
+  - intent: deny
+  - action: utter_welcome
+
+- story: Resturant order deny
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: utter_help
+  - intent: order
+  - action: utter_ask_order
+  - intent: order_list
+  - action: utter_ask_confirm_order
+  - intent: deny
+  - action: utter_welcome
+  - intent: thanks
+  - intent: goodbye
   - action: utter_goodbye
