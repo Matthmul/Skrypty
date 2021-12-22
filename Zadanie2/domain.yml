@@ -3,29 +3,27 @@ session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
-- menu
 - request_order
-- greet
-- order_list
 - goodbye
-- affirm
+- order_list
 - deny
+- greet
+- menu
+- open_now_hours
+- affirm
 - thanks
 - open_hours
-- open_now_hours
 entities:
 - order_correctly
-- order_slot
+- orderSlotek
 slots:
-  order_slot:
+  orderSlotek:
     type: text
-    influence_conversation: true
     mappings:
     - type: from_entity
-      entity: order_slot
+      entity: orderSlotek
   order_correctly:
     type: bool
-    influence_conversation: true
     mappings:
     - type: from_entity
       entity: order_correctly
@@ -43,26 +41,26 @@ responses:
   utter_welcome:
   - text: You're welcome.
   - text: You are welcome.
-  utter_ask_order_form_order_slot:
+  utter_ask_order_form_orderSlotek:
   - text: What you want to order?
   utter_submit_order:
   - text: Food orderd.
   utter_ask_order_correctly:
-  - buttons:
-    - payload: /affirm
-      title: Yes
-    - payload: /deny
-      title: No
-    text: Your order is:\n{order_slot} \nAre you sure that you want it?
+  # - buttons:
+  #   - payload: /affirm
+  #     title: Yes
+  #   - payload: /deny
+  #     title: No
+  - text: Your order is:\n{orderSlotek}\nAre you sure that you want it?
 actions:
 - action_get_date
 - action_get_menu
 - action_get_now_date
-- action_get_order
-- action_make_order
+- utter_goodbye
 - utter_greet
 - utter_help
+- validate_order_form
 forms:
   order_form:
     required_slots:
-    - order_slot
+    - orderSlotek

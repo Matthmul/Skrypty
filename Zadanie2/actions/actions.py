@@ -11,6 +11,7 @@ from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker, FormValidationAction
 from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.types import DomainDict
 import datetime
 import json
 
@@ -79,48 +80,45 @@ class ActionGetMenu(Action):
         dispatcher.utter_message(response)
         return []
 
-class ActionMakeOrder(Action):
-    def name(self) -> Text:
-        return "action_get_order"
-
-    def run(self, dispatcher, tracker, domain):
-        print(tracker.get_slot("order"))
-        response = "Your order is:\n"
-        response += str(tracker.latest_message['text'])
-        dispatcher.utter_message(response)
-
-        dispatcher.utter_message("Are you sure that you want it?")
-        return []
-
-class ActionMakeOrder(Action):
-    def name(self) -> Text:
-        return "action_make_order"
-
-    def run(self, dispatcher, tracker, domain):
-
-        dispatcher.utter_message("Food orderd.")
-        return []
-
-
-class ValidateOrderForm(FormValidationAction):
+class ValidateRestaurantForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_order_form"
-    
-    async def run(self, slots_mapped_in_domain, dispatcher, tracker, domain):
-        order_slot = tracker.slots.get("order_slot")
+        
+    async def required_slots(self, slots_mapped_in_domain, dispatcher, tracker, domain):
+        order_slot = tracker.slots.get("orderSlotek")
+        print("1")
+        print(order_slot)
+        print(slots_mapped_in_domain)
         if order_slot is not None:
             return ["order_correctly"] + slots_mapped_in_domain
         return slots_mapped_in_domain
-    
+
+    async def extract_orderSlotek(self, dispatcher, tracker, domain):
+        print("1.2")
+        intent = tracker.get_intent_of_latest_message()
+        if intent == "request_order":
+            return {"orderSlotek": None}
+        else:
+            return {"orderSlotek": tracker.latest_message['text']}
+
+    def validate_orderSlotek(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        print("1.3")
+        print(slot_value)
+        return {"orderSlotek": slot_value}
+
     async def extract_order_correctly(self, dispatcher, tracker, domain):
+        print("2")
         intent = tracker.get_intent_of_latest_message()
         return {"order_correctly": intent == "affirm"}
 
     def validate_order_correctly(self, slot_value, dispatcher, tracker, domain):
+        print("3")
         if tracker.get_slot("order_correctly"):
-            return {"order_slot": tracker.get_slot("order_slot"), "order_correctly": True}
-        return {"order_slot": None, "order_correctly": None}
-        
-    def validate_order(self, slot_value, dispatcher, tracker, domain):
-        print(f"Order given: {slot_value}")
-        return {"first_name": slot_value}
+            return {"orderSlotek": tracker.get_slot("orderSlotek"), "order_correctly": True}
+        return {"orderSlotek": None, "order_correctly": None}

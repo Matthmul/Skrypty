@@ -56,15 +56,11 @@ stories:
   - action: order_form
   - active_loop: order_form
   - slot_was_set:
-    - requested_slot: order_slot
+    - requested_slot: orderSlotek
+  - slot_was_set:
+    - requested_slot: null
   - active_loop: null
   - action: utter_submit_order
-  # - intent: order_list
-  # - action: action_get_order
-  # - intent: affirm
-  # - action: action_make_order
-  # - intent: thanks
-  # - action: utter_welcome
   - intent: goodbye
   - action: utter_goodbye
 
@@ -73,6 +69,8 @@ stories:
   - intent: request_order
   - action: order_form
   - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: order_slot
   - intent: deny
   - action: action_deactivate_loop
   - active_loop: null
@@ -83,7 +81,9 @@ stories:
   - action: order_form
   - active_loop: order_form
   - slot_was_set:
-    - requested_slot: order_slot
+    - requested_slot: orderSlotek
+  - slot_was_set:
+    - requested_slot: null
   - active_loop: null
   - action: utter_submit_order
 
@@ -133,3 +133,15 @@ stories:
   - slot_was_set:
     - requested_slot: order_slot
   - intent: order_list
+
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: utter_help
+  - intent: open_now_hours
+  - action: action_get_now_date
+  - intent: menu
+  - action: action_get_menu
+  - intent: goodbye
+  - action: utter_goodbye

@@ -15,6 +15,7 @@ nlu:
     - goodmorning
     - goodevening
     - good afternoon
+    - h
 - intent: goodbye
   examples: |
     - cu
@@ -70,16 +71,22 @@ nlu:
     - at what time the restaurant is opened
     - at what time the restaurant works
     - What time does the restaurant open
+    - When will be closed?
 - intent: menu
   examples: |
     - What is at menu
     - Menu
     - Show menu
     - What's menu?
+    - what on mneu?
 - intent: request_order
   examples: |
     - I would like to make order
     - Make order
     - order
     - I want to order
-    
+    - I wont to order sth
+- intent: order_list
+  examples: |
+    - pizza
+    - hot-dog
