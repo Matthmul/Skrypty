@@ -16,6 +16,7 @@ nlu:
     - goodevening
     - good afternoon
     - h
+    - helo
 - intent: goodbye
   examples: |
     - cu
@@ -28,6 +29,7 @@ nlu:
     - see you around
     - bye bye
     - see you later
+    - by
 - intent: affirm
   examples: |
     - yes
@@ -36,6 +38,7 @@ nlu:
     - of course
     - that sounds good
     - correct
+    - ye
 - intent: deny
   examples: |
     - no
@@ -57,6 +60,10 @@ nlu:
     - Thats very kind of you
     - Youre awesome
     - Thank you for
+    - that's all thx
+    - Ok, thank u
+    - thats all
+    - thnaks
 - intent: open_hours
   examples: |
     - what are the opening hours
@@ -65,13 +72,15 @@ nlu:
     - at what time the restaurant is opened
     - Schedule of work
     - working schedule
+    - What time does the restaurant open
+    - when the restaurant work?
 - intent: open_now_hours
   examples: |
-    - at what time the restaurant is closed
-    - at what time the restaurant is opened
-    - at what time the restaurant works
-    - What time does the restaurant open
-    - When will be closed?
+    - at what time the restaurant will be closed today
+    - at what time the restaurant will be opened today
+    - at what time the restaurant works today
+    - When will be closed today?
+    - When will be opened today?
 - intent: menu
   examples: |
     - What is at menu
@@ -79,6 +88,9 @@ nlu:
     - Show menu
     - What's menu?
     - what on mneu?
+    - menu
+    - What have you got in menu?
+    - Could i see the menu
 - intent: request_order
   examples: |
     - I would like to make order
@@ -86,7 +98,22 @@ nlu:
     - order
     - I want to order
     - I wont to order sth
+    - I wont to order
+    - I would like to buy food
+    - i want to buy
+    - Make an order
 - intent: order_list
   examples: |
     - pizza
     - hot-dog
+    - Spagetti
+    - Spageti
+    - Hot-dog
+    - burger without tomatoes
+    - tiramisu
+    - Lasagne
+    - fish and chips
+    - kebab
+    - chicken soup
+    - steak with crisps
+    - bottle of wine and shrimps

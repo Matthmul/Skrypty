@@ -3,30 +3,39 @@ session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
-- request_order
-- goodbye
-- order_list
-- deny
-- greet
-- menu
-- open_now_hours
 - affirm
+- request_order
+- order_list
+- goodbye
+- deny
+- menu
 - thanks
+- greet
 - open_hours
+- open_now_hours
 entities:
-- order_correctly
 - orderSlotek
+- order_correctly
+- order_stop
 slots:
   orderSlotek:
     type: text
+    influence_conversation: true
     mappings:
     - type: from_entity
       entity: orderSlotek
   order_correctly:
     type: bool
+    influence_conversation: true
     mappings:
     - type: from_entity
       entity: order_correctly
+  order_stop:
+    type: bool
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: order_stop
 responses:
   utter_greet:
   - text: Hey!
@@ -46,19 +55,22 @@ responses:
   utter_submit_order:
   - text: Food orderd.
   utter_ask_order_correctly:
-  # - buttons:
-  #   - payload: /affirm
-  #     title: Yes
-  #   - payload: /deny
-  #     title: No
-  - text: Your order is:\n{orderSlotek}\nAre you sure that you want it?
+  - text: |-
+      Your order is: 
+      {orderSlotek} 
+      Are you sure that you want it?
+  utter_ask_order_stop:
+  - text: Do you want to cancel order?
 actions:
 - action_get_date
 - action_get_menu
 - action_get_now_date
+- action_submit_order
 - utter_goodbye
 - utter_greet
 - utter_help
+- utter_submit_order
+- utter_welcome
 - validate_order_form
 forms:
   order_form:

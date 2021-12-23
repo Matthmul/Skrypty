@@ -18,6 +18,7 @@ stories:
   - action: utter_help
   - intent: open_now_hours
   - action: action_get_now_date
+  - action: utter_help
   - intent: thanks
   - action: utter_welcome
   - intent: goodbye
@@ -30,6 +31,7 @@ stories:
   - action: utter_help
   - intent: open_hours
   - action: action_get_date
+  - action: utter_help
   - intent: thanks
   - action: utter_welcome
   - intent: goodbye
@@ -42,25 +44,9 @@ stories:
   - action: utter_help
   - intent: menu
   - action: action_get_menu
+  - action: utter_help
   - intent: thanks
   - action: utter_welcome
-  - intent: goodbye
-  - action: utter_goodbye
-
-- story: Resturant order approved
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - action: utter_help
-  - intent: request_order
-  - action: order_form
-  - active_loop: order_form
-  - slot_was_set:
-    - requested_slot: orderSlotek
-  - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: utter_submit_order
   - intent: goodbye
   - action: utter_goodbye
 
@@ -75,65 +61,6 @@ stories:
   - action: action_deactivate_loop
   - active_loop: null
 
-- story: Order yes
-  steps:
-  - intent: request_order
-  - action: order_form
-  - active_loop: order_form
-  - slot_was_set:
-    - requested_slot: orderSlotek
-  - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: utter_submit_order
-
-# - story: Order yes
-#   steps:
-#   - intent: order
-#   - action: utter_ask_order
-#   - intent: order_list
-#   - action: action_get_order
-#   - intent: affirm
-#   - action: action_make_order
-
-# - story: Order no
-#   steps:
-#   - intent: order
-#   - action: utter_ask_order
-#   - intent: order_list
-#   - action: action_get_order
-#   - intent: deny
-#   - action: utter_welcome
-
-# - story: Resturant order deny
-#   steps:
-#   - intent: greet
-#   - action: utter_greet
-#   - action: utter_help
-#   - intent: order
-#   - action: utter_ask_order
-#   - intent: order_list
-#   - action: utter_ask_confirm_order
-#   - intent: deny
-#   - action: utter_welcome
-#   - intent: thanks
-#   - intent: goodbye
-#   - action: utter_goodbye
-
-- story: interactive_story_1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - action: utter_help
-  - intent: menu
-  - action: action_get_menu
-  - intent: request_order
-  - action: order_form
-  - active_loop: order_form
-  - slot_was_set:
-    - requested_slot: order_slot
-  - intent: order_list
-
 - story: interactive_story_1
   steps:
   - intent: greet
@@ -143,5 +70,234 @@ stories:
   - action: action_get_now_date
   - intent: menu
   - action: action_get_menu
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: interactive_story_1
+  steps:
+  - intent: request_order
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: orderSlotek
+  - slot_was_set:
+    - orderSlotek: Hot-dog
+  - slot_was_set:
+    - requested_slot: order_correctly
+  - slot_was_set:
+    - order_correctly: true
+  - slot_was_set:
+    - orderSlotek: Hot-dog
+  - slot_was_set:
+    - requested_slot: null
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_submit_order
+  - action: utter_help
+  - intent: thanks
+  - action: utter_welcome
+
+- story: interactive_story_1
+  steps:
+  - intent: menu
+  - action: action_get_menu
+  - intent: thanks
+  - action: utter_welcome
+
+- story: interactive_story_2
+  steps:
+  - intent: open_hours
+  - action: action_get_date
+  - action: utter_help
+  - intent: thanks
+  - action: utter_welcome
+
+- story: interactive_story_1
+  steps:
+  - intent: menu
+  - action: action_get_menu
+  - intent: request_order
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: orderSlotek
+  - slot_was_set:
+    - orderSlotek: burger without tomatoes
+  - slot_was_set:
+    - requested_slot: order_correctly
+  - slot_was_set:
+    - order_correctly: true
+  - slot_was_set:
+    - orderSlotek: burger without tomatoes
+  - slot_was_set:
+    - requested_slot: null
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_submit_order
+  - action: utter_help
+  - intent: thanks
+  - action: utter_welcome
+
+- story: interactive_story_1
+  steps:
+  - intent: request_order
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: orderSlotek
+  - slot_was_set:
+    - orderSlotek: Lasagne
+  - slot_was_set:
+    - requested_slot: order_correctly
+  - slot_was_set:
+    - order_correctly: false
+  - slot_was_set:
+    - orderSlotek: Lasagne
+  - slot_was_set:
+    - requested_slot: order_stop
+  - slot_was_set:
+    - order_stop: null
+  - slot_was_set:
+    - order_correctly: null
+  - slot_was_set:
+    - orderSlotek: null
+  - slot_was_set:
+    - requested_slot: orderSlotek
+  - slot_was_set:
+    - orderSlotek: fish and chips
+  - slot_was_set:
+    - requested_slot: order_correctly
+  - slot_was_set:
+    - order_correctly: false
+  - slot_was_set:
+    - orderSlotek: fish and chips
+  - slot_was_set:
+    - requested_slot: order_stop
+  - slot_was_set:
+    - order_stop: true
+  - slot_was_set:
+    - order_correctly: false
+  - slot_was_set:
+    - orderSlotek: fish and chips
+  - slot_was_set:
+    - requested_slot: null
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_submit_order
+  - action: utter_help
+  - intent: thanks
+  - action: utter_welcome
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: interactive_story_2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: utter_help
+  - intent: request_order
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: orderSlotek
+  - slot_was_set:
+    - orderSlotek: kebab
+  - slot_was_set:
+    - requested_slot: order_correctly
+  - slot_was_set:
+    - order_correctly: true
+  - slot_was_set:
+    - orderSlotek: kebab
+  - slot_was_set:
+    - requested_slot: null
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_submit_order
+  - action: utter_help
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: interactive_story_3
+  steps:
+  - intent: request_order
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: orderSlotek
+  - slot_was_set:
+    - orderSlotek: chicken soup
+  - slot_was_set:
+    - requested_slot: order_correctly
+  - slot_was_set:
+    - order_correctly: true
+  - slot_was_set:
+    - orderSlotek: chicken soup
+  - slot_was_set:
+    - requested_slot: null
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_submit_order
+  - action: utter_help
+
+- story: interactive_story_1
+  steps:
+  - intent: menu
+  - action: action_get_menu
+  - intent: request_order
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: orderSlotek
+  - slot_was_set:
+    - orderSlotek: steak with crisps
+  - slot_was_set:
+    - requested_slot: order_correctly
+  - slot_was_set:
+    - order_correctly: true
+  - slot_was_set:
+    - orderSlotek: steak with crisps
+  - slot_was_set:
+    - requested_slot: null
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_submit_order
+  - action: utter_help
+
+- story: interactive_story_2
+  steps:
+  - intent: request_order
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: orderSlotek
+  - slot_was_set:
+    - orderSlotek: bottle of wine and shrimps
+  - slot_was_set:
+    - requested_slot: order_correctly
+  - slot_was_set:
+    - order_correctly: false
+  - slot_was_set:
+    - orderSlotek: bottle of wine and shrimps
+  - slot_was_set:
+    - requested_slot: order_stop
+  - slot_was_set:
+    - order_stop: true
+  - slot_was_set:
+    - order_correctly: false
+  - slot_was_set:
+    - orderSlotek: bottle of wine and shrimps
+  - slot_was_set:
+    - requested_slot: null
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_submit_order
+  - action: utter_help
   - intent: goodbye
   - action: utter_goodbye
